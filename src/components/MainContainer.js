@@ -5,6 +5,7 @@ import SearchBar from "./SearchBar";
 
 function MainContainer() {
   const [stocks, setStocks] = useState([])
+  const [portfolio, setPortfolio] = useState([])
   const [sort, setsort] = useState({
     sort: '',
     filter: 'All'
@@ -16,15 +17,29 @@ function MainContainer() {
     .then(fetchedStocks => setStocks(fetchedStocks))
   })
 
+  const handleAdd = (addedStock) => {
+    
+    if (portfolio.find(stock => stock.id === addedStock.id)) {
+      console.log('Already owned')
+    } else {
+      const currentPortfolio = [...portfolio, addedStock]
+      setPortfolio(currentPortfolio)
+    }
+  } 
+
+  const handleDelete = () => {
+    
+  }
+
   return (
     <div>
       <SearchBar />
       <div className="row">
         <div className="col-8">
-          <StockContainer stocks={stocks}/>
+          <StockContainer handleClick={handleAdd} stocks={stocks}/>
         </div>
         <div className="col-4">
-          <PortfolioContainer />
+          <PortfolioContainer handleClick={handleDelete} portfolio={portfolio}/>
         </div>
       </div>
     </div>
