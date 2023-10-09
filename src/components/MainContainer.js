@@ -25,10 +25,11 @@ function MainContainer() {
       const currentPortfolio = [...portfolio, addedStock]
       setPortfolio(currentPortfolio)
     }
-  } 
+  }
 
-  const handleDelete = () => {
-    
+  const handleDelete = ({ id }) => {
+    const newPortfolio = portfolio.filter(stock => stock.id !== id)
+    setPortfolio(newPortfolio)  
   }
 
   return (
