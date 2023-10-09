@@ -6,8 +6,8 @@ import SearchBar from "./SearchBar";
 function MainContainer() {
   const [stocks, setStocks] = useState([])
   const [portfolio, setPortfolio] = useState([])
-  const [sort, setsort] = useState({
-    sort: '',
+  const [sort, setSort] = useState({
+    sort: 'Alphabetically',
     filter: 'All'
   })
 
@@ -32,12 +32,21 @@ function MainContainer() {
     setPortfolio(newPortfolio)  
   }
 
+  const handleSort = (name, value) => {
+    const newSort = {
+      ...sort,
+      [name]: value  
+    }
+    setSort(newSort)
+  }
+
+
   return (
     <div>
-      <SearchBar />
+      <SearchBar onSort={handleSort} {...sort} />
       <div className="row">
         <div className="col-8">
-          <StockContainer handleClick={handleAdd} stocks={stocks}/>
+          <StockContainer handleClick={handleAdd} stocks={stocks} {...sort} />
         </div>
         <div className="col-4">
           <PortfolioContainer handleClick={handleDelete} portfolio={portfolio}/>
